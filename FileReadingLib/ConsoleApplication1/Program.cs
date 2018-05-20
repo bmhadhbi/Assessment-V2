@@ -10,8 +10,14 @@ namespace FileParser
     {
         static void Main(string[] args)
         {
+            //Read Text File
             string path = @"E:\File Repository\Assessment-V2\FileReadingLib\ConsoleApplication1\test.txt";
             FilesReading.ReadTextFile(path);
+
+            //Read XML File
+            string pathXml = @"E:\File Repository\Assessment-V2\FileReadingLib\ConsoleApplication1\test.xml";
+            FilesReading.ReadXmlFile(pathXml);
+
         }
     }
 }

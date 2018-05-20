@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace FileParser
 {
@@ -42,6 +43,17 @@ namespace FileParser
             finally
             {
                 Console.WriteLine("Executing finally block.");
+            }
+        }
+
+        public static void ReadXmlFile(string filePath)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filePath);
+
+            foreach (XmlNode node in doc.DocumentElement.ChildNodes)
+            {
+                Console.WriteLine(node.InnerText);
             }
         }
     }
