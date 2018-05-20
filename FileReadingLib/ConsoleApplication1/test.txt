@@ -1,0 +1,3 @@
+ma première ligne
+ma deuxieme ligne
+fin du fichier
