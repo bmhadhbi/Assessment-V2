@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -55,6 +56,34 @@ namespace FileParser
             {
                 Console.WriteLine(node.InnerText);
             }
+        }
+
+        /// <summary>
+        /// Read an encrypted File
+        /// </summary>
+        /// <param name="filePath"></param>
+        public static void ReadDecryptedFile(string filePath)
+        {           
+            try
+            {
+                byte[] encryptedBytes = File.ReadAllBytes(filePath);
+                DES DESAlgorithm = new DESCryptoServiceProvider();
+                MemoryStream ms = new MemoryStream(encryptedBytes);
+                CryptoStream cs = new CryptoStream(ms, DESAlgorithm.CreateDecryptor(), CryptoStreamMode.Read);
+
+                cs.Read(encryptedBytes, 0, encryptedBytes.Length);
+                byte[] resultBytes = ms.ToArray();
+                cs.Close();
+                ms.Close();
+
+                // Writing the result of reading the encrypted file in to Console Window
+                Console.Write(resultBytes);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            Console.ReadLine();
         }
     }
 }
