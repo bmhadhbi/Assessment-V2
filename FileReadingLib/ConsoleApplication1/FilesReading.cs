@@ -20,6 +20,8 @@ namespace FileParser
         /// Reading a text file content and writing in console window
         /// </summary>
         /// <param name="filePath"></param>
+        /// 
+        [PrincipalPermissionAttribute(SecurityAction.Demand, Role = "Admin")]
         public static void ReadTextFile(string filePath)
         {
             String line;
