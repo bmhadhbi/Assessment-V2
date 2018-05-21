@@ -18,12 +18,6 @@ namespace FileParser
             string pathXml = @"E:\File Repository\Assessment-V2\FileReadingLib\ConsoleApplication1\test.xml";
             FilesReading.ReadXmlFile(pathXml);
 
-            //Read XML File
-            string pathXml = @"E:\File Repository\Assessment-V2\FileReadingLib\ConsoleApplication1\test.xml";
-            FilesReading.ReadXmlFile(pathXml);
-
-
-
         }
     }
 }

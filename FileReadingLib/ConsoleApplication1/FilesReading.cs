@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -12,6 +13,7 @@ namespace FileParser
     /// <summary>
     /// Class for readinf Files Content
     /// </summary>
+    /// 
     public static class FilesReading
     {
         /// <summary>
@@ -48,6 +50,7 @@ namespace FileParser
             }
         }
 
+        [PrincipalPermissionAttribute(SecurityAction.Demand,Role ="Admin")]
         public static void ReadXmlFile(string filePath)
         {
             XmlDocument doc = new XmlDocument();
