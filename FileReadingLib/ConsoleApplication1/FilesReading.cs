@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -76,8 +77,9 @@ namespace FileParser
                 cs.Close();
                 ms.Close();
 
-                // Writing the result of reading the encrypted file in to Console Window
-                Console.Write(resultBytes);
+
+                // Writing the result of reading the encrypted file in to Console Window                
+                Console.Write(Encoding.ASCII.GetString(resultBytes));
             }
             catch (Exception e)
             {
