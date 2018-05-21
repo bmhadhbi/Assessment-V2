@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +9,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+
 
 namespace FileParser
 {
@@ -93,7 +96,10 @@ namespace FileParser
             Console.ReadLine();
         }
 
-
+        /// <summary>
+        /// Reading an Encrypted XML File
+        /// </summary>
+        /// <param name="filePath"></param>
         public static void ReadEncryptedXMLFile(string filePath)
         {
             try
@@ -121,6 +127,33 @@ namespace FileParser
                 Console.WriteLine(e.Message);
             }
             Console.ReadLine();
+        }
+
+        /// <summary>
+        /// Read Json File
+        /// </summary>
+        /// <param name="FilePath"></param>
+        public static void ReadJsonFile(string FilePath)
+        {
+            JObject o1 = JObject.Parse(File.ReadAllText(FilePath));
+
+            // read JSON directly from a file
+            using (StreamReader file = File.OpenText(FilePath))
+            using (JsonTextReader reader = new JsonTextReader(file))
+            {
+                JObject o2 = (JObject)JToken.ReadFrom(reader);
+                foreach (JProperty property in o2.Properties())
+                {
+                    Console.WriteLine(property.Name + " - " + property.Value);
+                }
+                // name1 - value1
+                // name2 - value2
+
+                foreach (KeyValuePair<string, JToken> property in o2)
+                {
+                    Console.WriteLine(property.Key + " - " + property.Value);
+                }
+            }
         }
     }
 }
