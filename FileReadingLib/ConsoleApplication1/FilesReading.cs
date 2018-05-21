@@ -133,6 +133,8 @@ namespace FileParser
         /// Read Json File
         /// </summary>
         /// <param name="FilePath"></param>
+        /// 
+        [PrincipalPermissionAttribute(SecurityAction.Demand, Role = "Admin")]
         public static void ReadJsonFile(string FilePath)
         {
             JObject o1 = JObject.Parse(File.ReadAllText(FilePath));
