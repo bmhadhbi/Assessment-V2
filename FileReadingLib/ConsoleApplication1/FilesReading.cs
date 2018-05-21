@@ -155,6 +155,32 @@ namespace FileParser
                 }
             }
         }
+
+        /// <summary>
+        /// Read Encryptes Json File
+        /// </summary>
+        /// <param name="filePath"></param>
+        public static void ReadEncrytedJsonFile(string filePath)
+        {
+            //read a config from file
+            byte[] fileBytes = File.ReadAllBytes(filePath);
+            StringReader stringReader = new StringReader(Encoding.UTF8.GetString(fileBytes));
+            using (JsonTextReader reader = new JsonTextReader(stringReader))
+            {
+                JObject o2 = (JObject)JToken.ReadFrom(reader);
+                foreach (JProperty property in o2.Properties())
+                {
+                    Console.WriteLine(property.Name + " - " + property.Value);
+                }
+                // name1 - value1
+                // name2 - value2
+
+                foreach (KeyValuePair<string, JToken> property in o2)
+                {
+                    Console.WriteLine(property.Key + " - " + property.Value);
+                }
+            }
+        }
     }
 }
 
