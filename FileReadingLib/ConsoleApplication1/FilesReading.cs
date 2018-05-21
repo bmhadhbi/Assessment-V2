@@ -27,10 +27,10 @@ namespace FileParser
             {
 
                 StreamReader sr = new StreamReader(filePath);
-              
+
                 //First line
                 line = sr.ReadLine();
-                            
+
                 while (line != null)
                 {
                     Console.WriteLine(line);
@@ -50,7 +50,7 @@ namespace FileParser
             }
         }
 
-        [PrincipalPermissionAttribute(SecurityAction.Demand,Role ="Admin")]
+        [PrincipalPermissionAttribute(SecurityAction.Demand, Role = "Admin")]
         public static void ReadXmlFile(string filePath)
         {
             XmlDocument doc = new XmlDocument();
@@ -66,8 +66,8 @@ namespace FileParser
         /// Read an encrypted File
         /// </summary>
         /// <param name="filePath"></param>
-        public static void ReadDecryptedFile(string filePath)
-        {           
+        public static void ReadEncryptedFile(string filePath)
+        {
             try
             {
                 byte[] encryptedBytes = File.ReadAllBytes(filePath);
@@ -90,5 +90,36 @@ namespace FileParser
             }
             Console.ReadLine();
         }
+
+
+        public static void ReadEncryptedXMLFile(string filePath)
+        {
+            try
+            {
+                FileInfo info = new FileInfo(filePath);
+                FileStream input = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                DESCryptoServiceProvider cryptic = new DESCryptoServiceProvider();
+               
+                DES DESAlgorithm = new DESCryptoServiceProvider();
+                CryptoStream cs = new CryptoStream(input, DESAlgorithm.CreateDecryptor(), CryptoStreamMode.Read);
+
+                BinaryReader rdr = new BinaryReader(cs);
+                byte[] dta = new byte[info.Length];
+                rdr.Read(dta, 0, (int)info.Length);
+                rdr.Close();
+                cs.Close();
+                input.Close();
+
+
+                // Writing the result of reading the encrypted XML file in to Console Window                
+                Console.Write(Encoding.ASCII.GetString(dta));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            Console.ReadLine();
+        }
     }
 }
+
